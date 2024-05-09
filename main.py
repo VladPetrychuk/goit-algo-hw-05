@@ -1,9 +1,14 @@
 def parse_input(user_input):
-
-  command, *args = user_input.split()
-  command = command.strip().lower()
-  return command, args
-
+    try:
+        if user_input.strip():
+            command, *args = user_input.split()
+            command = command.strip().lower()
+            return command, args
+        else:
+            return None, []
+    except ValueError:
+        return None, []
+    
 def input_error(func):
     def inner(*args, **kwargs):
         try:
@@ -78,8 +83,10 @@ def main():
     elif command in ["close", "exit"]:
       print("До побачення!")
       break
+    elif command is None:
+        print("Введено порожню команду. Введіть будь ласка команду")
     else:
-      print("Невідома команда.")
+        print("Невідома команда.")
 
 
 if __name__ == "__main__":
